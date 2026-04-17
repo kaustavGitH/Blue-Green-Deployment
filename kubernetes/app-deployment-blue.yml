@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bankapp-blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bankapp
+      version: blue
+  template:
+    metadata:
+      app: bankapp
+      version: blue
+    spec:
+      containers:
+      - name:bankapp
+        image: kaustavsdet/bankapp:blue
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: SPRING_DATASOURCE_URL
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: SPRING_DATASOURCE_USERNAME
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: SPRING_DATASOURCE_PASSWORD
+        resources:
+          requests:
+            memory: "1000Mi"
+            cpu: "1000m"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
