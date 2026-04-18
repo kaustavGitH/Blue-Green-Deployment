@@ -14,7 +14,7 @@ spec:
       version: green
     spec:
       containers:
-      - name:bankapp
+      - name: bankapp
         image: kaustavsdet/bankapp:green
         ports:
         - containerPort: 8080
