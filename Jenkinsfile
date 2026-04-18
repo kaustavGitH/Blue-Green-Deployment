@@ -124,7 +124,7 @@ pipeline{
 
         stage('Switch traffic between Blue and Green'){
             when{
-                expression(return params.SWITCH_TRAFFIC)
+                expression{return params.SWITCH_TRAFFIC}
             }
             steps{
                 script{
