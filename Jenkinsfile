@@ -75,6 +75,22 @@ pipeline{
             }
         }
 
+        stage('SonarQube: Code Quality Gates'){
+            steps{
+                script{
+                    sonarqube_code_quality()
+                }
+            }
+        }
+
+        stage('build'){
+            steps{
+                script{
+                    sh "mvn package -DskipTests=true"
+                }
+            }
+        }
+
         stage('Docker build'){
             steps{
                 script{
