@@ -141,14 +141,15 @@ pipeline{
 
         stage('Verify deployment'){
             steps{
+                script{
+                    def verifyEnv = params.DEPLOY_ENV
 
-                def verifyEnv = params.DEPLOY_ENV
-
-                withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: 'gameapps', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
-                    sh """
-                        kubectl get pods -l version=${verifyEnv} -n ${KUBE_NAMESPACE}
-                        kubectl get svc bankapp-service -n ${KUBE_NAMESPACE}
-                    """
+                    withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: 'gameapps', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                        sh """
+                            kubectl get pods -l version=${verifyEnv} -n ${KUBE_NAMESPACE}
+                            kubectl get svc bankapp-service -n ${KUBE_NAMESPACE}
+                        """
+                    }
                 }
             }
         }
