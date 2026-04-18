@@ -120,12 +120,14 @@ pipeline{
         stage('Deploy SVC-APP'){
             steps{
                 script{
-                    withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                    dir('kubernetes'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
                         sh """
                             if ! kubectl get svc bankapp-service -n ${KUBE_NAMESPACE}; then
                                 kubectl get svc bankapp-service.yml -n ${KUBE_NAMESPACE}
                             fi
                         """
+                    }
                     }
                 }
             }
@@ -141,12 +143,14 @@ pipeline{
                     else{
                         deploymentFile = 'app-deployment-green.yml'
                     }
-
-                    withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                    
+                    dir('kubernetes'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
                         sh """
                             kubectl apply -f ${deploymentFile} -n ${KUBE_NAMESPACE}"
                             kubectl apply -f ingress.yml -n ${KUBE_NAMESPACE}"
                         """
+                    }
                     }
                 }
             }
@@ -159,11 +163,12 @@ pipeline{
             steps{
                 script{
                     def newEnv = params.DEPLOY_ENV
-
-                    withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                    dir('kubernetes'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
                         sh '''
                             kubectl patch service bankapp-service -p "{\\"spec\\":{\\"selector\\":{\\"app\\": \\"bankapp\\", \\"version\\": \\"'''+newEnv+'''\\"}}}" -n ${KUBE_NAMESPACE}
                         '''
+                    }
                     }
                 }
             }
@@ -173,12 +178,13 @@ pipeline{
             steps{
                 script{
                     def verifyEnv = params.DEPLOY_ENV
-
-                    withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: 'gameapps', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                    dir('kubernetes'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: 'gameapps', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
                         sh """
                             kubectl get pods -l version=${verifyEnv} -n ${KUBE_NAMESPACE}
                             kubectl get svc bankapp-service -n ${KUBE_NAMESPACE}
                         """
+                    }
                     }
                 }
             }
