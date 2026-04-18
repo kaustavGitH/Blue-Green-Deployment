@@ -14,7 +14,7 @@ pipeline{
     }
 
     environment {
-        IMAGE_NAME = "kaustavsdet/bankapp"
+        IMAGE_NAME = "bankapp"
         DOCKER_TAG = "${params.DOCKER_TAG}"
         KUBE_NAMESPACE = "webapps"
         SONAR_HOME = tool "Sonar"
