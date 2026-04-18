@@ -112,8 +112,11 @@ pipeline{
                 script{
                     dir("kubernetes"){
                         withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
-                        sh "kubectl apply -f mysql-ds.yml -n ${KUBE_NAMESPACE}"
-                    }
+                        sh """
+                            kubectl apply -f secrets.yaml -n ${KUBE_NAMESPACE}
+                            kubectl apply -f mysql-ds.yml -n ${KUBE_NAMESPACE}
+                        """
+                        }
                     }
                 }
             }
@@ -139,7 +142,7 @@ pipeline{
             steps{
                 script{
                     def deploymentFile = ""
-                    if(params.DEPLOY_ENV == blue){
+                    if(params.DEPLOY_ENV == 'blue'){
                         deploymentFile = 'app-deployment-blue.yml'
                     }
                     else{
