@@ -3,6 +3,7 @@ pipeline{
     agent {label 'node'}
 
         tools {
+            jdk 'JDK-21'
             maven 'Maven'
         }
 
@@ -47,6 +48,7 @@ pipeline{
 
         stage('compile'){
             steps{
+                sh "mvn compile"
                 echo "code compilation is successfully completed"
             }
         }
