@@ -70,7 +70,7 @@ pipeline{
         stage('Sonarqube: Code analysis'){
             steps{
                 script{
-                    sonarqube_analysis("Sonar","Blue Green Deploy","blue-green")
+                    sonarqube_analysis("Sonar","Blue-Green-Deploy","blue-green")
                 }
             }
         }
