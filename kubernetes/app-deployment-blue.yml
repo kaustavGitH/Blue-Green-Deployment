@@ -10,8 +10,9 @@ spec:
       version: blue
   template:
     metadata:
-      app: bankapp
-      version: blue
+      labels:
+        app: bankapp
+        version: blue
     spec:
       containers:
       - name: bankapp
