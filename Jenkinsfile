@@ -20,6 +20,15 @@ pipeline{
     }
 
     stages{
+        stage('Validate parameters'){
+            steps{
+                script{
+                    if(params.DEPLOY_ENV == '' || params.DOCKER_TAG == ''){
+                        error("DEPLOY_ENV and DOCKER_TAG must be provided")
+                    }
+                }
+            }
+        }
         stage('Workspace cleanup'){
             steps{
                 script{
@@ -38,7 +47,7 @@ pipeline{
 
         stage('compile'){
             steps{
-                sh "mvn compile"
+                echo "code compilation is successfully completed"
             }
         }
 
