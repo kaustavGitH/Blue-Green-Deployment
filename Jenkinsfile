@@ -48,7 +48,7 @@ pipeline{
 
         stage('compile'){
             steps{
-                sh "mvn compile"
+                sh "mvn clean compile"
                 echo "code compilation is successfully completed"
             }
         }
