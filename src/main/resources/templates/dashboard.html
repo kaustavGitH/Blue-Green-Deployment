@@ -191,8 +191,18 @@
         </div>
     </div>
 
+
     <p th:if="${error != null}" th:text="${error}" class="error text-center mt-3"></p>
 </div>
+
+<footer style="text-align:center; margin-top:40px; padding:15px; font-size:14px; color:#666; border-top:1px solid #ddd;">
+    <p>
+        Running deployment:
+        <span th:text="${version}"
+              th:style="'color:' + (${version} == 'BLUE' ? '#1e90ff' : '#2ecc71') + '; font-weight:bold;'">
+        </span>
+    </p>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

@@ -23,6 +23,10 @@ public class BankController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Account account = accountService.findAccountByUsername(username);
         model.addAttribute("account", account);
+        
+        String version = System.getenv("APP_VERSION"); // BLUE or GREEN
+        model.addAttribute("version", version != null ? version : "blue");
+        
         return "dashboard";
     }
 
