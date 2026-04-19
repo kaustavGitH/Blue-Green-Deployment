@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 
@@ -19,16 +18,12 @@ public class BankController {
     @Autowired
     private AccountService accountService;
 
-    @Value("${APP_VERSION}")
-    private String version;
-
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Account account = accountService.findAccountByUsername(username);
         model.addAttribute("account", account);
         
-        model.addAttribute("version", version);
         return "dashboard";
     }
 
