@@ -112,7 +112,7 @@ pipeline{
             steps{
                 script{
                     dir("kubernetes"){
-                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://0564D70D5376E0B0BF79A86D2B4319EC.gr7.us-east-1.eks.amazonaws.com'){
                         sh """
                             kubectl apply -f secrets.yml -n ${KUBE_NAMESPACE}
                             kubectl apply -f mysql-ds.yml -n ${KUBE_NAMESPACE}
@@ -127,7 +127,7 @@ pipeline{
             steps{
                 script{
                     dir("kubernetes"){
-                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://0564D70D5376E0B0BF79A86D2B4319EC.gr7.us-east-1.eks.amazonaws.com'){
                         sh """
                             if ! kubectl get svc bankapp-service -n ${KUBE_NAMESPACE}; then
                                 kubectl apply -f bankapp-service.yml -n ${KUBE_NAMESPACE}
@@ -151,7 +151,7 @@ pipeline{
                     }
                     
                     dir("kubernetes"){
-                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://0564D70D5376E0B0BF79A86D2B4319EC.gr7.us-east-1.eks.amazonaws.com'){
                         sh """
                             kubectl apply -f ${deploymentFile} -n ${KUBE_NAMESPACE}
                             kubectl apply -f ingress.yml -n ${KUBE_NAMESPACE}
@@ -170,7 +170,7 @@ pipeline{
                 script{
                     def newEnv = params.DEPLOY_ENV
                     dir("kubernetes"){
-                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: '${KUBE_NAMESPACE}', restrictKubeConfigAccess: false, serverUrl: 'https://0564D70D5376E0B0BF79A86D2B4319EC.gr7.us-east-1.eks.amazonaws.com'){
                         sh '''
                             kubectl patch service bankapp-service -p "{\\"spec\\":{\\"selector\\":{\\"app\\": \\"bankapp\\", \\"version\\": \\"'''+newEnv+'''\\"}}}" -n ${KUBE_NAMESPACE}
                         '''
@@ -185,7 +185,7 @@ pipeline{
                 script{
                     def verifyEnv = params.DEPLOY_ENV
                     dir("kubernetes"){
-                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: 'gameapps', restrictKubeConfigAccess: false, serverUrl: 'https://024BD00864AD2FA18755C8A0D59A73ED.gr7.us-east-1.eks.amazonaws.com'){
+                        withKubeConfig(caCertificate: '', clusterName: 'blue-green-deploy.us-east-1.eksctl.io', contextName: '', credentialsId: 'k8s-cred', namespace: 'gameapps', restrictKubeConfigAccess: false, serverUrl: 'https://0564D70D5376E0B0BF79A86D2B4319EC.gr7.us-east-1.eks.amazonaws.com'){
                         sh """
                             kubectl get pods -l version=${verifyEnv} -n ${KUBE_NAMESPACE}
                             kubectl get svc bankapp-service -n ${KUBE_NAMESPACE}
