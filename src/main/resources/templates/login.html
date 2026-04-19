@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <title>Login - Goldencat Bank</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -8,6 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            background: none;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -106,72 +106,51 @@
         }
 
         @keyframes shake {
-            0% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-5px);
-            }
-
-            50% {
-                transform: translateX(5px);
-            }
-
-            75% {
-                transform: translateX(-5px);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
         }
     </style>
 </head>
-
-<body th:style="'background: ' + (${version} == 'BLUE'
-            ? 'linear-gradient(to right, #0000ff, #99ccff)'
-            : 'linear-gradient(to right, #006400, #90ee90)') +
-            '; color:white;'">
-
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <a class="navbar-brand" href="#">Goldencat Bank</a>
-        <div class="ml-auto social-icons">
-            <a href="https://www.youtube.com/@codewithgoldencat" target="_blank" title="YouTube">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/code-with-goldecat-453460297/" target="_blank" title="LinkedIn">
-                <i class="fab fa-linkedin"></i>
-            </a>
-        </div>
-    </nav>
-
-    <div class="container">
-        <h2 class="text-center">Login</h2>
-        <form method="post" action="/login">
-            <div class="form-group">
-                <label>Username:</label>
-                <input type="text" class="form-control" name="username" required />
-            </div>
-            <div class="form-group">
-                <label>Password:</label>
-                <input type="password" class="form-control" name="password" required />
-            </div>
-            <button type="submit" class="btn btn-block">Login</button>
-        </form>
-        <p class="text-center mt-3">Don't have an account? <a href="/register" class="custom-link">Register here</a></p>
-
-        <div th:if="${param.error}" class="alert alert-danger mt-3 text-center">
-            Invalid username or password.
-        </div>
+<body>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="#">Goldencat Bank</a>
+    <div class="ml-auto social-icons">
+        <a href="https://www.youtube.com/@codewithgoldencat" target="_blank" title="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/code-with-goldecat-453460297/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
     </div>
+</nav>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2024 Code With Goldencat. All rights reserved. | <a href="#" class="custom-link">Privacy Policy</a> |
-            <a href="#" class="custom-link">Terms of Service</a></p>
-    </footer>
+<div class="container">
+    <h2 class="text-center">Login</h2>
+    <form method="post" action="/login">
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" class="form-control" name="username" required />
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" class="form-control" name="password" required />
+        </div>
+        <button type="submit" class="btn btn-block">Login</button>
+    </form>
+    <p class="text-center mt-3">Don't have an account? <a href="/register" class="custom-link">Register here</a></p>
+
+    <div th:if="${param.error}" class="alert alert-danger mt-3 text-center">
+        Invalid username or password.
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2024 Code With Goldencat. All rights reserved. | <a href="#" class="custom-link">Privacy Policy</a> | <a href="#" class="custom-link">Terms of Service</a></p>
+</footer>
 
 </body>
-
 </html>
