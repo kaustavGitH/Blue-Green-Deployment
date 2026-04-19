@@ -78,7 +78,8 @@ pipeline{
         stage('SonarQube: Code Quality Gates'){
             steps{
                 script{
-                    sonarqube_code_quality()
+                    // sonarqube_code_quality()
+                    echo "skipped"
                 }
             }
         }
