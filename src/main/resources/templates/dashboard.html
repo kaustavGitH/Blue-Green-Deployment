@@ -7,15 +7,14 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #000000, #ffd700);
+            background: none;
             color: #ffffff;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
-            padding-top: 80px;
             flex-direction: column;
         }
 
@@ -33,13 +32,6 @@
 
         .navbar-custom .navbar-brand {
             font-weight: bold;
-        }
-
-        .dashboard-wrapper {
-            flex: 1;
-            width: 100%;
-            display: flex;
-            justify-content: center;
         }
 
         .dashboard-container {
@@ -139,7 +131,11 @@
     </style>
 </head>
 
-<body>
+<body th:style="'background: ' + (${version} == 'BLUE'
+            ? 'linear-gradient(to right, #0000ff, #99ccff)'
+            : 'linear-gradient(to right, #006400, #90ee90)') +
+            '; color:white;'">
+
     <nav class="navbar navbar-expand-lg navbar-custom">
         <a class="navbar-brand" href="#">Goldencat Bank</a>
         <ul class="navbar-nav ml-auto">
@@ -149,92 +145,79 @@
         </ul>
     </nav>
 
-    <div class="dashboard-wrapper">
-        <div class="container dashboard-container">
-            <div class="text-center">
-                <h2 th:text="'Welcome, ' + ${account.username}"></h2>
-                <h3 th:text="'Current Balance: $' + ${account.balance}"></h3>
-            </div>
-
-            <!-- Account Details Section -->
-            <div class="account-details">
-                <h4>Account Details</h4>
-                <p><strong>Account Number:</strong> <span th:text="${account.id}"></span></p>
-                <!-- Use account.id for account number -->
-                <p><strong>Account Type:</strong> Savings</p>
-            </div>
-
-            <div class="row justify-content-center">
-                <!-- Deposit Section -->
-                <div class="col-md-3">
-                    <button class="btn btn-block btn-primary" type="button" data-toggle="collapse"
-                        data-target="#depositForm" aria-expanded="false" aria-controls="depositForm">
-                        Deposit
-                    </button>
-                    <div class="collapse mt-3" id="depositForm">
-                        <form method="post" action="/deposit" class="form-container">
-                            <div class="form-group">
-                                <label>Amount:</label>
-                                <input type="number" class="form-control" name="amount" required />
-                            </div>
-                            <button type="submit" class="btn btn-block btn-success">Submit</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Withdraw Section -->
-                <div class="col-md-3">
-                    <button class="btn btn-block btn-primary" type="button" data-toggle="collapse"
-                        data-target="#withdrawForm" aria-expanded="false" aria-controls="withdrawForm">
-                        Withdraw
-                    </button>
-                    <div class="collapse mt-3" id="withdrawForm">
-                        <form method="post" action="/withdraw" class="form-container">
-                            <div class="form-group">
-                                <label>Amount:</label>
-                                <input type="number" class="form-control" name="amount" required />
-                            </div>
-                            <button type="submit" class="btn btn-block btn-success">Submit</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Transfer Section -->
-                <div class="col-md-3">
-                    <button class="btn btn-block btn-primary" type="button" data-toggle="collapse"
-                        data-target="#transferForm" aria-expanded="false" aria-controls="transferForm">
-                        Transfer Money
-                    </button>
-                    <div class="collapse mt-3" id="transferForm">
-                        <form method="post" action="/transfer" class="form-container">
-                            <div class="form-group">
-                                <label>Recipient Username:</label>
-                                <input type="text" class="form-control" name="toUsername" required />
-                            </div>
-                            <div class="form-group">
-                                <label>Amount:</label>
-                                <input type="number" class="form-control" name="amount" required />
-                            </div>
-                            <button type="submit" class="btn btn-block btn-success">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-            <p th:if="${error != null}" th:text="${error}" class="error text-center mt-3"></p>
+    <div class="container dashboard-container">
+        <div class="text-center">
+            <h2 th:text="'Welcome, ' + ${account.username}"></h2>
+            <h3 th:text="'Current Balance: $' + ${account.balance}"></h3>
         </div>
-    </div>
 
-    <footer
-        style="text-align:center; margin-top:20px; padding:15px; font-size:14px; color:#666; border-top:1px solid #ddd;">
-        <p>
-            Running deployment:
-            <span th:text="${version}"
-                th:style="'color:' + (${version} == 'BLUE' ? '#1e90ff' : '#2ecc71') + '; font-weight:bold;'">
-            </span>
-        </p>
-    </footer>
+        <!-- Account Details Section -->
+        <div class="account-details">
+            <h4>Account Details</h4>
+            <p><strong>Account Number:</strong> <span th:text="${account.id}"></span></p>
+            <!-- Use account.id for account number -->
+            <p><strong>Account Type:</strong> Savings</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <!-- Deposit Section -->
+            <div class="col-md-3">
+                <button class="btn btn-block btn-primary" type="button" data-toggle="collapse"
+                    data-target="#depositForm" aria-expanded="false" aria-controls="depositForm">
+                    Deposit
+                </button>
+                <div class="collapse mt-3" id="depositForm">
+                    <form method="post" action="/deposit" class="form-container">
+                        <div class="form-group">
+                            <label>Amount:</label>
+                            <input type="number" class="form-control" name="amount" required />
+                        </div>
+                        <button type="submit" class="btn btn-block btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Withdraw Section -->
+            <div class="col-md-3">
+                <button class="btn btn-block btn-primary" type="button" data-toggle="collapse"
+                    data-target="#withdrawForm" aria-expanded="false" aria-controls="withdrawForm">
+                    Withdraw
+                </button>
+                <div class="collapse mt-3" id="withdrawForm">
+                    <form method="post" action="/withdraw" class="form-container">
+                        <div class="form-group">
+                            <label>Amount:</label>
+                            <input type="number" class="form-control" name="amount" required />
+                        </div>
+                        <button type="submit" class="btn btn-block btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Transfer Section -->
+            <div class="col-md-3">
+                <button class="btn btn-block btn-primary" type="button" data-toggle="collapse"
+                    data-target="#transferForm" aria-expanded="false" aria-controls="transferForm">
+                    Transfer Money
+                </button>
+                <div class="collapse mt-3" id="transferForm">
+                    <form method="post" action="/transfer" class="form-container">
+                        <div class="form-group">
+                            <label>Recipient Username:</label>
+                            <input type="text" class="form-control" name="toUsername" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Amount:</label>
+                            <input type="number" class="form-control" name="amount" required />
+                        </div>
+                        <button type="submit" class="btn btn-block btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <p th:if="${error != null}" th:text="${error}" class="error text-center mt-3"></p>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
