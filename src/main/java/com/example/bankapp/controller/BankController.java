@@ -3,6 +3,7 @@ package com.example.bankapp.controller;
 import com.example.bankapp.model.Account;
 import com.example.bankapp.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,16 @@ public class BankController {
     @Autowired
     private AccountService accountService;
 
+    @Value("${APP_VERSION}")
+    private String version;
+
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Account account = accountService.findAccountByUsername(username);
         model.addAttribute("account", account);
+
+        model.addAttribute("version", version);
         
         return "dashboard";
     }
