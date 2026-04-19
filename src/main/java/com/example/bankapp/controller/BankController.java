@@ -25,7 +25,7 @@ public class BankController {
         model.addAttribute("account", account);
         
         String version = System.getenv("APP_VERSION"); // BLUE or GREEN
-        model.addAttribute("version", version != null ? version : "blue");
+        model.addAttribute("version", version != null ? version : "BLUE");
         
         return "dashboard";
     }

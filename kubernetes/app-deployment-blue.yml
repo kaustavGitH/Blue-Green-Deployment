@@ -33,7 +33,7 @@ spec:
               name: mysql-secret
               key: SPRING_DATASOURCE_PASSWORD
         - name: APP_VERSION
-          value: blue
+          value: BLUE
         resources:
           requests:
             memory: "500Mi"
