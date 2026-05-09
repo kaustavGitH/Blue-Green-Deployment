@@ -17,7 +17,6 @@ The project demonstrated practical understanding of deployment automation, rollb
 Docker, Kubernetes, Jenkins, ALB Ingress, AWS EKS, Git, Linux
 
 ### Key Highlights
-
 1. Implemented zero-downtime deployments
 2. Automated CI/CD pipeline for application delivery
 3. Configured rollback mechanism for failed releases
@@ -29,3 +28,9 @@ Docker, Kubernetes, Jenkins, ALB Ingress, AWS EKS, Git, Linux
 3. Health checks executed
 4. Traffic switched to Green
 5. Rollback possible if failures occur
+
+## Challenges & Learnings
+- Learned Kubernetes service switching
+- Understood production deployment strategies
+- Improved CI/CD automation skills
+- Explored rollback handling techniques
