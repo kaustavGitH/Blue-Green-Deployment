@@ -9,6 +9,8 @@ Built and containerized the application using Docker, automated CI/CD pipelines 
 ## What did the project demonstrate
 The project demonstrated practical understanding of deployment automation, rollback strategies, high availability, container orchestration, and modern DevOps workflows.
 
+![Architecture Diagram](blue-green-deployment.png)
+
 ### Tech Stack
 Docker, Kubernetes, Jenkins, ALB Ingress, AWS EKS, Git, Linux
 
